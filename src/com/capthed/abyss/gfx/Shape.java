@@ -18,6 +18,7 @@ public class Shape {
 	private Vec2[] vertices;
 	private Vec2[] texCoords;
 	private Texture tex;
+	private Animation anim;
 	private float[] colors;
 	private int numberOfVert;
 	private int vertexSize;
@@ -56,6 +57,19 @@ public class Shape {
 		this.tex = tex;
 
 		this.tex.load();
+		createTexCoordBuffer();
+		initTexCoordBuffer();
+	}
+	
+	// TODO
+	public Shape(Vec2[] vertices, Vec2[] texCoords, Animation anim) {
+		this(vertices);
+		this.texCoords = texCoords;
+		this.anim = anim;
+
+		for (Texture t : anim.getTexs())
+			t.load();
+			
 		createTexCoordBuffer();
 		initTexCoordBuffer();
 	}
@@ -182,7 +196,10 @@ public class Shape {
 	public int getColorDepth() { return colorDepth; }
 	
 	/** @return The texture of this shape. Can be null*/
-	public Texture getTexture() { return tex; }
+	public Texture getTexture() { 
+		if (anim != null) return anim.getTexture();
+		else return tex; 
+	}
 	
 	/** 
 	 * Move the shape by the given ammount

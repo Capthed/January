@@ -8,7 +8,7 @@ import com.capthed.abyss.gfx.Display;
  */
 public class Abyss {
 
-	private static final String VERSION = "2.0.a0";
+	private static final String VERSION = "2.0.a1";
 	
 	private static Game game;
 	private static Thread mainLoopThread;

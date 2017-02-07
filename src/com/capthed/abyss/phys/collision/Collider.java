@@ -36,6 +36,8 @@ public class Collider {
 		for (int i = 0; i < vertices.length; i++)
 			vertices[i].add(delta);
 		
+		aabb.move(delta);
+		
 		calcSepAxis();
 	}
 	
@@ -105,6 +107,8 @@ public class Collider {
 	 *  @return True if there is an intersection, false otherwise
 	 */
 	public boolean colliding(Collider c) {
+		if (!isActive() || !c.isActive()) return false;
+		
 		// c1 axis
 		for(int i = 0; i < sepAxis.length; i++) {
 			

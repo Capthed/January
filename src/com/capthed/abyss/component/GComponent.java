@@ -69,5 +69,8 @@ public abstract class GComponent {
 	/** @return The name of the GComponent. Every component must have one :-)*/
 	public abstract String getName();
 	
-	public String toString() { return "GC(" + id + ")"; }
+	/** @return An ArrayList of all GConmpinent*/
+	public static ArrayList<GComponent> getGCs() { return gcs; }
+	
+	public String toString() { return "GC(" + id + ")" + " " + getName(); }
 }

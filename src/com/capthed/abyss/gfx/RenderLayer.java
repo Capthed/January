@@ -63,7 +63,7 @@ public class RenderLayer {
 		for (int i : ids) {
 			if (GComponent.getByID(i) == null)
 				Log.err("Null GComponent in layer " + name + "[id=" + i +"]", 1);
-			else if (GComponent.getByID(i).isActive())
+			else if (GComponent.getByID(i).isActive()) 
 				((GObject) GComponent.getByID(i)).render();
 		}
 	}

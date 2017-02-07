@@ -22,7 +22,7 @@ public class Display {
 	 * Creates the display. Modifications like fullscreen must be called before this method.
 	 * 
 	 * @param w Width of display
-	 * @param h Height of display <b>(width and height act as resolution, not size if the display is fullscreen)</b>
+	 * @param h Height of display <b>(width and height act as resolution, not size if the display is fullscreen, if they are set to -1 they will be set to the highest possible)</b>
 	 * @param title Title to be displayed on the window
 	 * @param decorated If true, the window will have boundaries, otherwise it wont
 	 */
@@ -53,9 +53,14 @@ public class Display {
 		
 		//get the desired monitor
 		GLFWVidMode vidmode = glfwGetVideoMode(mon);
-
+		
+		if (h == -1)
+			h = height = vidmode.height();
+		if (w == -1)
+			w = width = vidmode.width();
+		
 		// checks if the window is within the screen boundaries (only if it is not fullscreen)
-		if (!isFull && w > vidmode.height() || h > vidmode.height())
+		if (!isFull && w > vidmode.width() || h > vidmode.height())
 			Log.err("Display can't be larger than the screen", 1);
 		
 		if (isFull) {
@@ -125,7 +130,7 @@ public class Display {
 	/** Destroys the display.*/
 	public static void destroy() {
 		if (display == -1)
-			Log.err("Display not created", 1);
+			return;
 		
 		Log.log("Destroying window");
 		glfwDestroyWindow(display);
