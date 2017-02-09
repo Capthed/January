@@ -3,12 +3,12 @@ package com.capthed.abyss;
 import com.capthed.abyss.gfx.Display;
 
 /**
- * create -> start -> initDisplay -> init
+ * <code>create -> start -> initDisplay -> init</code>
  * 
  */
 public class Abyss {
 
-	private static final String VERSION = "2.0.a1";
+	private static final String VERSION = "2.0.a2";
 	
 	private static Game game;
 	private static Thread mainLoopThread;

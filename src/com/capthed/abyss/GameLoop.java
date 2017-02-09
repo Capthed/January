@@ -4,6 +4,7 @@ import com.capthed.abyss.gfx.Display;
 import com.capthed.abyss.gfx.LayerManager;
 import com.capthed.abyss.gfx.RenderUtil;
 import com.capthed.abyss.input.Input;
+import com.capthed.abyss.phys.World;
 
 public class GameLoop implements Runnable {
 
@@ -95,6 +96,8 @@ public class GameLoop implements Runnable {
 	private void update() {
 		Input.pollEvents();
 		Input.update();
+		
+		World.updateRB();
 		
 		Abyss.getGame().constUpdate();
 	

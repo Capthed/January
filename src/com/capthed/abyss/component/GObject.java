@@ -5,6 +5,7 @@ import com.capthed.abyss.gfx.Render;
 import com.capthed.abyss.gfx.RenderLayer;
 import com.capthed.abyss.gfx.Shape;
 import com.capthed.abyss.math.Vec2;
+import com.capthed.abyss.phys.RigidBody;
 import com.capthed.abyss.phys.World;
 import com.capthed.abyss.phys.collision.Collider;
 
@@ -19,6 +20,7 @@ public abstract class GObject extends GComponent {
 	protected Shape shape;
 	protected Collider collider;
 	protected RenderLayer renlay;
+	protected RigidBody rb;
 	
 	/** GObject represented by the given shape on the screen. Has no collider*/
 	public GObject(Shape s) {
@@ -38,6 +40,15 @@ public abstract class GObject extends GComponent {
 	public GObject(Shape s, Collider c) {
 		this.shape = s;
 		this.collider = c;
+	}
+	
+	/** GObject with the given shape, collider and rigid body*/
+	public GObject(Shape s, Collider c, RigidBody rb) {
+		this.shape = s;
+		this.collider = c;
+		this.rb = rb;
+		
+		rb.setGO(this);
 	}
 	
 	/** Renders the GObject shape if it has one*/
@@ -61,7 +72,9 @@ public abstract class GObject extends GComponent {
 		if (collider != null) collider.move(delta);
  	}
 	
-	/** Try to move the GObject respectfully to colliders/physics*/
+	/**
+	 *  Try to move the GObject respectfully to colliders/physics
+	 */
 	public void tryMove(Vec2 delta) {
 		if(!isCollidable()) {
 			Log.warn("Non-collidable in <tryMove>");
@@ -73,9 +86,12 @@ public abstract class GObject extends GComponent {
 		
 		Vec2 dir = new Vec2(delta).normalize().mult(-.1f);
 		this.move(delta);
+		
 		while(World.isCollidingWithWorld(this)) {
 			this.move(dir);
+			
 		} 
+		
 	}
 	
 	/** Set this GObjects render layer*/
@@ -89,4 +105,6 @@ public abstract class GObject extends GComponent {
 	
 	/** @return The collider of the object. Can be null */
 	public Collider getCollider() { return collider; }
+	
+	public RigidBody getRigidBody() { return rb; }
 }

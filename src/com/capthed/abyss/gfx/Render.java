@@ -53,9 +53,15 @@ public class Render {
 	
 	/** 
 	 * Renders the desired set of vertices as a polygon on the screen. Less optimised than <code>shape(Shape)</code>
+	 * 
+	 * @param b The polygon will be green if true, blue otherwise
 	 */
-	public static void debug(Vec2[] v) {
-		glColor3f(0, 1, 0);
+	public static void debug(Vec2[] v, boolean b) {
+		if (b)
+			glColor3f(0, 1, 0);
+		else
+			glColor3f(0, 0, 1);
+			
 		glPushMatrix();
 		glBegin(GL_LINE_LOOP);
 		

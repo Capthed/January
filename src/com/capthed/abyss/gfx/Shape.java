@@ -37,14 +37,10 @@ public class Shape {
 		this.vertices = vertecies;
 		
 		numberOfVert = vertices.length;
+		
 		vertexSize = 2;
 		
-		// default color
-		float[] col = new float[numberOfVert * colorDepth];
-		for (int i = 0; i < vertices.length * colorDepth; i++)
-			col[i] = 1;
-		setColor(col);
-		
+		setDefColor();
 		createFloatBuffer();
 		
 		initArrayBuffer();
@@ -57,6 +53,8 @@ public class Shape {
 		this.tex = tex;
 
 		this.tex.load();
+		
+		setDefColor();
 		createTexCoordBuffer();
 		initTexCoordBuffer();
 	}
@@ -70,8 +68,18 @@ public class Shape {
 		for (Texture t : anim.getTexs())
 			t.load();
 			
+		setDefColor();
 		createTexCoordBuffer();
 		initTexCoordBuffer();
+	}
+	
+	// sets the default color to white
+	private void setDefColor() {
+		// default color
+		float[] col = new float[numberOfVert * colorDepth];
+		for (int i = 0; i < vertices.length * colorDepth; i++)
+			col[i] = 1;
+		setColor(col);
 	}
 	
 	// buffer object of the tex coordinates
@@ -163,6 +171,9 @@ public class Shape {
 	
 	/** Set the color of the current shape. The ammount of values per vertex depends on color depth.*/
 	public void setColor(float[] cols) {
+		if (cols.length > numberOfVert * colorDepth)
+			Log.err("Invalid <setColor> call: too many colors", 1);
+		
 		colors = cols;
 		
 		createColorBuffer();

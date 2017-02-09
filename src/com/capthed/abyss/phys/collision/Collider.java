@@ -173,8 +173,8 @@ public class Collider {
 
 	/** Renders the colliders and its AABB via <code>Render.debug</code>*/
 	public void renderDebug() {
-		Render.debug(vertices);
-		Render.debug(aabb.getVertices());
+		Render.debug(vertices, true);
+		Render.debug(aabb.getVertices(), false);
 	}
 	
 	/** Set if the collider is active or not. If it is active, it will partake in the physics*/
